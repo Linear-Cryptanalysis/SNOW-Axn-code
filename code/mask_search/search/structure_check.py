@@ -1,7 +1,5 @@
-# Structural check of Section 3.2: for a weight-6 pattern mu the admissible sets
-#   B_mu = { B : mu(B) <= mu, (B.L^-1)|_{mu^c} = 0 },
-#   C_mu = { C : mu(C) <= mu, (C.L^-1 s^-1 L)|_{mu^c} = 0 }
-# have dimensions 16 and 8, hence |Theta_mu| = 2^24.
+"""Structural check of Section 3.2: for a weight-6 pattern mu the admissible sets B_mu = { B : mu(B) <= mu, (B.L^-1)|_{mu^c} = 0 }, C_mu = { C : mu(C) <= mu, (C.L^-1 s^-1 L)|_{mu^c} = 0 } have dimensions 16 and 8, hence |Theta_mu| = 2^24."""
+
 import sys
 import os, sys
 _CODE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

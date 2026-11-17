@@ -1,4 +1,4 @@
-// Complete support census of Section 3.3 (Table 2).
+// Complete support enumeration of Section 3.3 (Table 2).
 //
 // Inputs : none; the trace-dual matrix Q is embedded below.
 // Outputs: one line per feasible pair and the totals all/screened/feasible/same.
@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 
-// Complete support census.  Byte 0 is the least significant byte of a mask.
+// Complete support enumeration.  Byte 0 is the least significant byte of a mask.
 // Q is the transpose of L^{-1} sigma L in the GF(256) trace-dual byte basis.
 public static class SnowSupports
 {
@@ -121,12 +121,14 @@ public static class SnowSupports
             new[] {2,7,8,13}, new[] {1,6,11,12}
         };
         long all = 0, tested = 0, feasible = 0, equal = 0;
+        long allEq = 0, testedEq = 0, feasibleEq = 0;
         long[] activity = new long[19];
         for (int a = 1; a <= 8; a++) foreach (int m in patterns[a]) {
             int[] inputWeights = new int[4];
             for (int j = 0; j < 4; j++) foreach (int k in groups[j]) inputWeights[j] += (m >> k) & 1;
             for (int b = 1; b <= 18 - 2*a; b++) foreach (int p in patterns[b]) {
                 all++;
+                if (2*a + b == 18) allEq++;
                 bool valid = true;
                 int db = 0;
                 for (int j = 0; j < 4; j++) {
@@ -138,18 +140,24 @@ public static class SnowSupports
                 }
                 if (!valid) continue;
                 tested++;
+                if (2*a + b == 18) testedEq++;
                 int dc = CDim(m, p, a);
                 if (dc < 0) continue;
                 feasible++;
+                if (2*a + b == 18) feasibleEq++;
                 if (m == p) equal++;
                 activity[2*a + b]++;
                 Console.WriteLine("hit mu1={0:x4} mu2={1:x4} a={2} b={3} dB={4} dC={5}", m, p, a, b, db, dc);
             }
         }
         Console.WriteLine("all={0} screened={1} feasible={2} same={3}", all, tested, feasible, equal);
+        Console.WriteLine("eq18 all={0} screened={1} feasible={2} same={3}", allEq, testedEq, feasibleEq, equal);
+        Console.WriteLine("lower all={0} screened={1} feasible={2}", all - allEq, tested - testedEq, feasible - feasibleEq);
         for (int i = 1; i <= 18; i++)
             if (activity[i] > 0) Console.WriteLine("activity={0} count={1}", i, activity[i]);
-        if (all != 472985832 || tested != 925588 || feasible != 4 || equal != 4 || activity[18] != 4)
-            throw new InvalidOperationException("The complete support census did not match its expected invariants.");
+        if (all != 472985832 || tested != 925588 || feasible != 4 || equal != 4 || activity[18] != 4
+            || allEq != 158317600 || testedEq != 373544 || feasibleEq != 4
+            || all - allEq != 314668232 || tested - testedEq != 552044 || feasible - feasibleEq != 0)
+            throw new InvalidOperationException("The complete support enumeration did not match its expected invariants.");
     }
 }

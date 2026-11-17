@@ -1,15 +1,15 @@
-// Independent support census of Section 3.3, by row-space membership.
+// Independent support enumeration of Section 3.3, by row-space membership.
 //
 // Inputs : none; L, L^-1 and sigma are rebuilt instead of being read from Q.
-// Outputs: one line per feasible pair and the same totals as the census.
-// Call   : IndependentCensus.Run(); throws if the invariants fail.
+// Outputs: one line per feasible pair and the same totals as the enumeration.
+// Call   : IndependentEnumeration.Run(); throws if the invariants fail.
 
 using System;
 using System.Collections.Generic;
 
 // Independently construct the field matrices and use row-space membership
-// instead of explicit kernel projections to repeat the full support census.
-public static class IndependentCensus
+// instead of explicit kernel projections to repeat the full support enumeration.
+public static class IndependentEnumeration
 {
     private static readonly int[] SR = {0,5,10,15,4,9,14,3,8,13,2,7,12,1,6,11};
     private static readonly int[] Sigma = {0,7,14,11,4,13,10,1,8,15,6,3,12,5,2,9};
@@ -119,10 +119,12 @@ public static class IndependentCensus
         }
         int[] groups = {0x8421, 0x4218, 0x2184, 0x1842};
         long all = 0, tested = 0, feasible = 0, equal = 0;
+        long allEq = 0, testedEq = 0, feasibleEq = 0;
         long[] activity = new long[19];
         for (int b = 1; b <= 16; b++) foreach (int p in patterns[b])
             for (int a = 1; a <= 8 && 2*a+b <= 18; a++) foreach (int m in patterns[a]) {
                 all++;
+                if (2*a + b == 18) allEq++;
                 bool valid = true;
                 int db = 0;
                 for (int j = 0; j < 4; j++) {
@@ -135,17 +137,23 @@ public static class IndependentCensus
                 }
                 if (!valid) continue;
                 tested++;
+                if (2*a + b == 18) testedEq++;
                 int dc = Analyze(m, p, a);
                 if (dc < 0) continue;
                 feasible++;
+                if (2*a + b == 18) feasibleEq++;
                 if (m == p) equal++;
                 activity[2*a+b]++;
                 Console.WriteLine("hit mu1={0:x4} mu2={1:x4} a={2} b={3} dB={4} dC={5}", m, p, a, b, db, dc);
             }
         Console.WriteLine("all={0} screened={1} feasible={2} same={3}", all, tested, feasible, equal);
+        Console.WriteLine("eq18 all={0} screened={1} feasible={2} same={3}", allEq, testedEq, feasibleEq, equal);
+        Console.WriteLine("lower all={0} screened={1} feasible={2}", all - allEq, tested - testedEq, feasible - feasibleEq);
         for (int i = 1; i <= 18; i++)
             if (activity[i] > 0) Console.WriteLine("activity={0} count={1}", i, activity[i]);
-        if (all != 472985832 || tested != 925588 || feasible != 4 || equal != 4 || activity[18] != 4)
+        if (all != 472985832 || tested != 925588 || feasible != 4 || equal != 4 || activity[18] != 4
+            || allEq != 158317600 || testedEq != 373544 || feasibleEq != 4
+            || all - allEq != 314668232 || tested - testedEq != 552044 || feasible - feasibleEq != 0)
             throw new InvalidOperationException("Independent support verification did not match its expected invariants.");
     }
 }

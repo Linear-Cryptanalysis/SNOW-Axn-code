@@ -1,8 +1,5 @@
-# Independent verification of the central numbers of
-# "Improved Correlation and Distinguishing Attacks on the SNOW-Axn Stream Cipher"
-# (and of Appendix A of the SNOW-Axn design document).
-# Built from scratch: GF(2^8), AES S-box, L = MC o SR, sigma, LAT/ILAT, then the
-# per-byte factorisation of the three-block correlation.
+"""Independent verification of the central numbers of "Improved Correlation and Distinguishing Attacks on the SNOW-Axn Stream Cipher" (and of Appendix A of the SNOW-Axn design document). Built from scratch: GF(2^8), AES S-box, L = MC o SR, sigma, LAT/ILAT, then the per-byte factorisation of the three-block correlation."""
+
 import numpy as np
 from math import log2
 
@@ -90,9 +87,11 @@ LAT = (mA.astype(np.int16) @ mB.T.astype(np.int16)).astype(int)      # LAT[m][u]
 ILAT = (mA.astype(np.int16) @ mI.T.astype(np.int16)).astype(int)
 dist = {}
 for v in np.abs(LAT).ravel(): dist[int(v)] = dist.get(int(v), 0) + 1
-print('LAT magnitude distribution (m,u over 256x256):')
-for k in sorted(dist): print('   %3d : %6d' % (k, dist[k]))
-print("paper's Table 1 : 0:4590  4:12240  8:9180  12:10200  16:8670  20:6120  24:9180  28:4080  32:1275 (+256:1)")
+
+def print_tables():
+    print('LAT absolute-value distribution (m,u over 256x256):')
+    for k in sorted(dist): print('   %3d : %6d' % (k, dist[k]))
+    print("paper's Table 1 : 0:4590  4:12240  8:9180  12:10200  16:8670  20:6120  24:9180  28:4080  32:1275 (+256:1)")
 
 # ---------- the two mask triples ----------
 def parse(h):
@@ -133,12 +132,14 @@ def analyse(name, tri):
         print('    %-2s byte %2d  in=%02x out=%02x  |tab|=%2d  corr=2^%.3f' % (blk, i, mi, ui, v, log2(v / 256)))
     print('  active boxes = %d ;  HW(mu_P)+2HW(mu_A) = %d' % (len(boxes), len(muP) + 2 * len(muA)))
     print('  total correlation = 2^%.4f' % (log2(prod) - 8 * len(boxes)))
-    print('  box magnitudes   : %s' % {v: sum(1 for b in boxes if b[4] == v) for v in sorted({b[4] for b in boxes})})
+    print('  box absolute values: %s' % {v: sum(1 for b in boxes if b[4] == v) for v in sorted({b[4] for b in boxes})})
     return prod
 
-p1 = analyse('optimal triple (eq. optmasks)', opt)
-p2 = analyse("designers' triple (Appendix A of the design document)", des)
-print('\nlog2 tau*  = %.4f  (paper: -54.771)' % (log2(p1) - 18 * 8))
-print('log2 tau_d = %.4f  (paper: -55.741)' % (log2(p2) - 18 * 8))
-print('gap = %.4f bits ; ratio = %.3f' % (log2(p1) - log2(p2), p1 / p2))
+if __name__ == '__main__':
+    print_tables()
+    p1 = analyse('optimal triple (eq. optmasks)', opt)
+    p2 = analyse("designers' triple (Appendix A of the design document)", des)
+    print('\nlog2 tau*  = %.4f  (paper: -54.771)' % (log2(p1) - 18 * 8))
+    print('log2 tau_d = %.4f  (paper: -55.741)' % (log2(p2) - 18 * 8))
+    print('gap = %.4f bits ; ratio = %.3f' % (log2(p1) - log2(p2), p1 / p2))
 

@@ -1,6 +1,5 @@
-# Vectorial FCA with the SNOW substitution tau -> rho = tau^2 (the decoder sees the
-# folded parity check, not the sample):  SEI = sum rho^2 = sum tau^4,
-# N = 4*l*ln2/SEI,  cost = sqrt(N*2^(l-B)) + 2N + B*2^B.
+"""Vectorial FCA with the SNOW substitution tau -> rho = tau^2 (the decoder sees the folded parity check, not the sample):  SEI = sum rho^2 = sum tau^4, N = 4*l*ln2/SEI,  cost = sqrt(N*2^(l-B)) + 2N + B*2^B."""
+
 import sys, io, contextlib, math
 import numpy as np
 import os, sys

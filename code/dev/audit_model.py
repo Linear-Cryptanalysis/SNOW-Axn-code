@@ -1,5 +1,5 @@
-# End-to-end: is the paper's optimal triple an assignment of the STP model?
-# Reconstruct every model variable from (alpha, beta) and check each constraint.
+"""End-to-end: is the paper's optimal triple an assignment of the STP model? Reconstruct every model variable from (alpha, beta) and check each constraint."""
+
 import sys, io, contextlib
 import numpy as np
 sys.path.insert(0, r'C:\Users\Lenovo\AppData\Local\Temp\snowa_study')

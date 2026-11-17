@@ -1,6 +1,5 @@
-# Structured feasibility: force conditions 1 and 2 by construction,
-#   gamma = sigma(L(alpha)),  beta = L^{-1}(gamma),
-# then check the remaining two conditions over all 2^16 choices of alpha.
+"""Structured feasibility: force conditions 1 and 2 by construction, gamma = sigma(L(alpha)),  beta = L^{-1}(gamma), then check the remaining two conditions over all 2^16 choices of alpha."""
+
 import sys, io, contextlib
 import os, sys
 _CODE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

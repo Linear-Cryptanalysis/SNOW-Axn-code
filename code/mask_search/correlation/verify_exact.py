@@ -1,5 +1,5 @@
-﻿# Exact-integer profile (tau = N / 2^108 with N = prod of the 18 m-values, N <= 2^54),
-# plus the top-24 correlation matrix and the 2000-level cumulative fraction.
+"""Exact-integer profile (tau = N / 2^108 with N = prod of the 18 m-values, N <= 2^54), plus the top-24 correlation matrix and the 2000-level cumulative fraction."""
+
 import sys, io, contextlib, math, time
 import numpy as np
 import os, sys
@@ -95,14 +95,14 @@ u, cnt = np.unique(nz, return_counts=True)
 print('  #levels (exact) : %d     (paper 3,295)' % u.size)
 cum = np.cumsum(cnt[::-1])          # descending N
 uu = u[::-1]
-print('  E|tau|          : log2 = %.4f                      (paper -61.888)'
+print('  E|tau|          : log2 = %.4f'
       % (math.log2(nz.mean()) - 108))
-print('  sum tau^2       : log2 = %.4f                      (paper -97.938)'
+print('  sum tau^2       : log2 = %.4f'
       % (math.log2(float(np.sum((nz.astype(np.float64)) ** 2))) - 216))
-print('  sum tau^6       : log2 = %.4f                      (paper -326.187)'
+print('  sum tau^6       : log2 = %.4f'
       % (math.log2(float(np.sum((nz.astype(np.float64)) ** 6))) - 648))
 for L_ in (999, 1000, 1999, 2000):
-    print('  cumulative at level %4d: %.3f%%   (paper: 2,000 -> 43.317%%)'
+    print('  cumulative at level %4d: %.3f%%'
           % (L_, 100.0 * cum[min(L_, cum.size - 1)] / nz.size))
 
 # ---------- top 24 ----------
@@ -113,10 +113,10 @@ bi, cj = np.unravel_index(order, N.shape)
 tau6 = float(np.sum((N[bi, cj].astype(np.float64)) ** 6)) * 2.0 ** -648
 print('\n=== the 24 strongest ===')
 print('  log2 values     : %s ...' % np.round(np.log2(N[bi, cj]) - 108, 3)[:8])
-print('  sum tau^6       : 2^%.3f   (paper 2^-327.214)' % math.log2(tau6))
+print('  sum tau^6       : 2^%.3f' % math.log2(tau6))
 lv24 = np.log2(N[bi, cj].astype(np.float64)) - 108
 pr = [lv24[a] + lv24[b] for a in range(24) for b in range(24) if a != b]
-print('  pairwise products: 2^%.3f .. 2^%.3f   (paper 2^-111.527 .. 2^-109.926)'
+print('  pairwise products: 2^%.3f .. 2^%.3f'
       % (min(pr), max(pr)))
 
 def triple(k):
@@ -141,17 +141,17 @@ for a in range(24):
         Cmat[a, b] = Cmat[b, a] = prod
 off = np.abs(Cmat - np.eye(24))
 pos = np.unravel_index(np.argmax(off), off.shape)
-print('  max |C_ij|      : %.4e = 2^%.3f at (%d,%d)  (paper 6.766e-21 = 2^-67.002 at (3,6))'
+print('  max |C_ij|      : %.4e = 2^%.3f at (%d,%d)'
       % (off.max(), math.log2(off.max()), pos[0], pos[1]))
 ev = np.linalg.eigvalsh(Cmat)
 ev = np.linalg.eigvalsh(Cmat - np.eye(24))
-print('  rho(C-I) via eig(C-I)  : 2^%.3f   (paper 2^-66.991)' % math.log2(max(abs(ev))))
+print('  rho(C-I) via eig(C-I)  : 2^%.3f' % math.log2(max(abs(ev))))
 rows = np.abs(Cmat - np.eye(24)).sum(axis=1)
-print('  max row sum ||C-I||_inf: %.4e = 2^%.3f   (paper 6.820e-21 = 2^-66.991)' % (rows.max(), math.log2(rows.max())))
+print('  max row sum ||C-I||_inf: %.4e = 2^%.3f' % (rows.max(), math.log2(rows.max())))
 SEI = float(tau @ np.linalg.solve(Cmat, tau)); s2 = float(np.sum(tau ** 2))
-print('  relative |SEI - sum tau^2| / sum tau^2 : 2^%.3f   (paper 2^-52.000)'
+print('  relative |SEI - sum tau^2| / sum tau^2 : 2^%.3f'
       % math.log2(abs(SEI - s2) / s2))
-print('  log2 SEI        : %.3f  (paper ~ -106.272 for m=24)' % math.log2(SEI))
+print('  log2 SEI        : %.3f' % math.log2(SEI))
 print('\n%.1fs' % (time.time() - t0))
 
 

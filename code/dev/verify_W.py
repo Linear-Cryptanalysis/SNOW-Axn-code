@@ -1,5 +1,5 @@
-# W = span of the 24 strongest triples: rank, (B,C) projection rank, the 30
-# admissible characters, the 6,254,429 non-zero characters, and SEI(W).
+"""W = span of the 24 strongest triples: rank, (B,C) projection rank, the 30 admissible characters, the 6,254,429 non-zero characters, and SEI(W)."""
+
 import sys, io, contextlib, math, time
 import numpy as np
 sys.path.insert(0, r'C:\Users\Lenovo\AppData\Local\Temp\snowa_study')

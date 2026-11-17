@@ -1,5 +1,5 @@
-﻿# (a) port of aes_p() from SNOW-A.cpp, compared with the verified L = MC o SR
-# (b) structural census of the generated snow.py
+"""(a) port of aes_p() from SNOW-A.cpp, compared with the verified L = MC o SR (b) structural census of the generated snow.py"""
+
 import sys, os
 sys.path.insert(0, r'C:\Users\Lenovo\AppData\Local\Temp\snowa_study')
 import io, contextlib

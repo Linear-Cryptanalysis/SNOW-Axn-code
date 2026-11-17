@@ -17,3 +17,12 @@ __pycache__/
 # capacities regenerated next to verify_space.py and push_k24.py
 code/mask_search/search/sei_nested.json
 code/mask_search/search/sei_nested_24.json
+
+# LaTeX sources and build artefacts of the paper (not part of this repository)
+/*.tex
+/document.*
+/SNOW-A.pdf
+/中文对照版.md
+/Fig/
+/deprecated/
+/latex_build.log

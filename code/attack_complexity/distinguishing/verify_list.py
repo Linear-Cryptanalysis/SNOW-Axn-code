@@ -2,7 +2,8 @@
 
 Inputs: ../data/w24.json.
 Outputs: a JSON summary and ../data/w24.log with rank, counts and power sums.
-Paper object: the span of W and its SEI, Table 6 and Section 5.
+The run time is printed but not written, so the log is byte-identical across runs.
+Paper object: the span of W and its SEI (Section 4.2, Table 5), and Section 4.3.
 """
 
 import json, math, os, sys, time
@@ -111,6 +112,7 @@ res = {
     'seconds': round(time.time() - t0, 1),
 }
 print(json.dumps(res, indent=1))
+log_res = {k: v for k, v in res.items() if k != 'seconds'}
 with open(LOG, 'w', encoding='utf-8') as f:
     f.write('input: data/w24.json\n')
-    f.write(json.dumps(res, indent=1) + '\n')
+    f.write(json.dumps(log_res, indent=1) + '\n')

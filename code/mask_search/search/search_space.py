@@ -1,7 +1,7 @@
-"""Search nested spans of strong three-word approximations for the cheapest
-linear space, under the pricing rule of Theorem 4 of [ZLM+25].
+"""Search nested spans of strong three-word approximations for the least costly
+linear space, under the cost rule of Theorem 4 of [ZLM+25].
 
-Self-checks first: the top-ranked mask must be the optimum of Equation (19)
+Self-checks first: the top-ranked mask must be the optimum of Equation (11)
 and its correlation must be 2^-54.7706.  Prints one row per dimension k.
 """
 import sys, os, io, math, contextlib

@@ -1,4 +1,5 @@
-# Verify Section 5 / Table 5 / Table 7 claims against the exhaustive profile.
+"""Verify Section 5 / Table 5 / Table 7 claims against the exhaustive profile."""
+
 import sys, io, contextlib, math, time
 import numpy as np
 sys.path.insert(0, r'C:\Users\Lenovo\AppData\Local\Temp\snowa_study')

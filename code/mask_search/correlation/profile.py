@@ -1,5 +1,5 @@
-﻿# Independent recomputation of Theorem 1: the full correlation profile of the
-# optimal activity pattern, by exhaustive enumeration of Theta_mu = B_mu x C_mu.
+"""Independent recomputation of the profile of Section 4.1: the full correlation profile of the optimal activity pattern, by exhaustive enumeration of Theta_mu = B_mu x C_mu."""
+
 import sys, io, contextlib, time
 import numpy as np
 import os, sys

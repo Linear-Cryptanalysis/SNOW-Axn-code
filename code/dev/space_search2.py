@@ -1,7 +1,5 @@
-﻿# Search nested spans of the strongest three-word approximations for the
-# linear space with the lowest state-recovery cost.  p = B.L^-1 and q = C.L^-1
-# sigma^-1 L are linear in B and C, so they are taken from the basis instead of
-# being recomputed for every combination.
+"""Search nested spans of the strongest three-word approximations for the linear space with the lowest state-recovery cost.  p = B.L^-1 and q = C.L^-1 sigma^-1 L are linear in B and C, so they are taken from the basis instead of being recomputed for every combination."""
+
 import sys, os, math, io, contextlib
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

@@ -1,5 +1,5 @@
-# Is the repaired SNOW-A.py model feasible at all?  Random sparse search over the
-# activity patterns (the model is pure 0/1, so a witness is a full certificate).
+"""Is the repaired SNOW-A.py model feasible at all?  Random sparse search over the activity patterns (the model is pure 0/1, so a witness is a full certificate)."""
+
 import random
 random.seed(7)
 sig = [0, 7, 14, 11, 4, 13, 10, 1, 8, 15, 6, 3, 12, 5, 2, 9]

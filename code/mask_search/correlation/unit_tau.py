@@ -1,8 +1,8 @@
 """Recompute the correlation of the optimal triple byte by byte.
 
-Inputs: the mask bytes of Eq. (19), hard-coded below; verify.py tables.
+Inputs: the mask bytes of Eq. (11), hard-coded below; verify.py tables.
 Outputs: one line with log2 tau, expected -54.771.
-Paper object: Eq. (19); a one-off unit check next to verify.py.
+Paper object: Eq. (11); a one-off unit check next to verify.py.
 """
 
 import sys, os, io, contextlib, math

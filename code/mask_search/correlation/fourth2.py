@@ -2,7 +2,7 @@
 
 Inputs: none; rebuilds Theta_mu from verify.py and the S-box tables.
 Outputs: sum tau^2, tau^4, tau^6 and the two cost rules for selected m.
-Paper object: the profile sums behind Section 4.2 and the cost of Table 4.
+Paper object: the profile sums behind Section 4.2 and the cost of Table 3.
 """
 
 import sys, io, contextlib, math

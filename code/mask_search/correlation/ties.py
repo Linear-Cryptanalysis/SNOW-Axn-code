@@ -1,5 +1,5 @@
-# How many active bytes of the 24 strongest have a *tied* bytewise A* ?  If any,
-# the spanning masks (hence W, hence the counts) depend on the tie-breaking.
+"""How many active bytes of the 24 strongest have a *tied* bytewise A* ?  If any, the spanning masks (hence W, hence the counts) depend on the tie-breaking."""
+
 import sys, io, contextlib
 import numpy as np
 import os, sys

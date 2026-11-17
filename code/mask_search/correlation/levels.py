@@ -1,5 +1,5 @@
-# How much freedom is there in "the 24 strongest"?  Exact level list near the head,
-# and the multiplicity of the level that supplies the last elements.
+"""How much freedom is there in "the 26 strongest"?  Exact level list near the head, and the multiplicity of the level that supplies the last elements."""
+
 import sys, io, contextlib, math
 import numpy as np
 import os, sys
@@ -77,7 +77,7 @@ print('head of the exact level list:')
 print('  #   log2|tau|     mult   cumulative')
 for k in range(20):
     print('  %-3d %-11.5f %-6d %d' % (k, math.log2(u[k]) - 108, cnt[k], cum[k]))
-k24 = np.searchsorted(cum, 24)
-print('\nthe 24 strongest = all levels 0..%d (%d masks) + %d of the %d masks at level %d (-%.5f)'
-      % (k24 - 1, cum[k24 - 1], 24 - cum[k24 - 1], cnt[k24], k24, 108 - math.log2(u[k24])))
-print('so the set is uniquely determined:', cnt[k24] == 24 - cum[k24 - 1])
+k26 = np.searchsorted(cum, 26)
+print('\nthe 26 strongest = the %d masks of levels 0..%d plus %d of the %d masks at level %d (-%.5f)'
+      % (cum[k26 - 1], k26 - 1, 26 - cum[k26 - 1], cnt[k26], k26, 108 - math.log2(u[k26])))
+print('so the set is uniquely determined:', 26 - cum[k26 - 1] == cnt[k26])

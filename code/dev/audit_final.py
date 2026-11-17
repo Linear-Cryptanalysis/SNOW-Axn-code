@@ -1,5 +1,5 @@
-# End-to-end audit: recompute every cell of the sweep table and the headline numbers,
-# then compare with what is written in appendix.tex / document.tex.
+"""End-to-end audit: recompute every cell of the sweep table and the headline numbers, then compare with what is written in appendix.tex / document.tex."""
+
 import re, sys, io, contextlib, math
 import numpy as np
 from math import log, sqrt, pi, log1p, erf

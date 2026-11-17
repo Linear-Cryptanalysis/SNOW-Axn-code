@@ -1,6 +1,6 @@
 """Look for a better linear space than the single optimum: enumerate pairs and
 triples drawn from a wide pool of the profile and report the capacity SEI of
-each span.  Priced by Theorem 4 with v = k, d1 = k.
+each span.  The cost follows Theorem 4 with v = k, d1 = k.
 """
 import sys, os, io, math, contextlib
 import numpy as np

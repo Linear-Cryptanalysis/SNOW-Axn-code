@@ -1,4 +1,5 @@
-# Sum tau^2 and the cross-term bound over the 24 strongest, reusing verify_exact.
+"""Sum tau^2 and the cross-term bound over the 24 strongest, reusing verify_exact."""
+
 import math, os
 import numpy as np
 

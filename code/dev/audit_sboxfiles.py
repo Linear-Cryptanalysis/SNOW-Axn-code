@@ -1,5 +1,5 @@
-﻿# Audit of the 2021 clause files: does (sboxR{4k}.txt) describe exactly the set
-#   {(in,out) : |LAT[in][out]| = 4k}   (AES S-box), as the STP generator assumes?
+"""Audit of the 2021 clause files: does (sboxR{4k}.txt) describe exactly the set {(in,out) : |LAT[in][out]| = 4k}   (AES S-box), as the STP generator assumes?"""
+
 import re, sys, os
 import numpy as np
 

@@ -1,5 +1,5 @@
-# Which assignment of the model's masks (alpha, beta, gamma) to the paper's masks
-# makes the four meaningful AESRound column conditions hold on the two known triples?
+"""Which assignment of the model's masks (alpha, beta, gamma) to the paper's masks makes the four meaningful AESRound column conditions hold on the two known triples?"""
+
 import sys, io, contextlib
 sys.path.insert(0, r'C:\Users\Lenovo\AppData\Local\Temp\snowa_study')
 with contextlib.redirect_stdout(io.StringIO()):

@@ -1,4 +1,5 @@
-﻿# Independent check: parse the two tables of appendix.tex and compare with a fresh computation.
+"""Independent check: parse the two tables of appendix.tex and compare with a fresh computation."""
+
 import re, sys, io, contextlib, math
 import numpy as np
 sys.path.insert(0, r'C:\Users\Lenovo\AppData\Local\Temp\snowa_study')

@@ -148,12 +148,12 @@ for start in range(0, 1 << 24, CH):
     if base.any():
         adm_base.extend(float(x) for x in lg[base])
 print('pair %s' % (PAIR,))
-print('  masks with nonzero correlation : %d   (expected for fixed T00-T23: 6,138,951)' % nz_count)
+print('  masks with nonzero correlation : %d   (the canonical 24-mask W has 6,138,951)' % nz_count)
 print('  admissible (A == A*): %d  -> sum tau^6 = 2^%.3f' %
       (len(adm_strict), math.log2(sum(2.0 ** (6 * x) for x in adm_strict)) if adm_strict else float('nan')))
-print('  admissible (tie-free): %d  -> sum tau^6 = 2^%.3f   (expected 29)' %
+print('  admissible (tie-free): %d  -> sum tau^6 = 2^%.3f   (the canonical (22,23) selection gives 29)' %
       (len(adm_weak), math.log2(sum(2.0 ** (6 * x) for x in adm_weak)) if adm_weak else float('nan')))
-print('  price = 2^%.3f   (paper 2^333.421)' %
+print('  cost  = 2^%.3f' %
       (6.218 - math.log2(sum(2.0 ** (6 * x) for x in adm_weak))))
 print('  admissible (class only): %d  -> sum tau^6 = 2^%.3f' % (len(adm_base), math.log2(sum(2.0 ** (6 * x) for x in adm_base))))
 print('  %.1fs' % (time.time() - t0))

@@ -1,5 +1,8 @@
 """Numerically audit the single-mask model and statistical constants.
 
+The script reproduces Table 3 under the rule of Section 3.4 and its first row
+under the designers' rule at the exact trail correlation.
+
 These calculations assume independent noise, the stated collision model, and
 an idealised keystream of unbounded length for one key and IV.  They do not
 establish the validity of the vectorial attack or the physical data limit.
@@ -76,6 +79,35 @@ assert abs(best['data'] - 250.027938707) < 1e-8
 assert abs(best['time'] - 250.919215250) < 1e-8
 print('improvements', *(f'{designer[k]-best[k]:.9f}' for k in ('equations', 'data', 'time')))
 
+# The designers' rule: sort N(1+log2 N) for the precomputation, decode in
+# 2^bg (1+ceil(log2 M)) operations, memory N+2^bg, and bg minimizes the time.
+def designers_rule(tau):
+    rows = []
+    for bg in range(1, L + 1):
+        equations = log_equations(tau, bg, 2)
+        data = (equations + L + 1 - bg) / 2
+        precomputation = data + LOG2(1 + data)
+        decoding = bg + LOG2(1 + math.ceil(equations))
+        rows.append({'bg': bg, 'equations': equations, 'data': data,
+                     'precomputation': precomputation, 'decoding': decoding,
+                     'time': logsum(precomputation, decoding),
+                     'memory': logsum(data, float(bg))})
+    return min(rows, key=lambda row: row['time'])
+
+
+designers_rule_row = designers_rule(TAU_DESIGNER)
+best_designers_rule = designers_rule(TAU_BEST)
+print('designers rule, designers trail', fmt(designers_rule_row))
+print('designers rule, optimum        ', fmt(best_designers_rule))
+assert designers_rule_row['bg'] == 248
+assert abs(designers_rule_row['data'] - 248.486612) < 1e-5
+assert abs(designers_rule_row['time'] - 257.186284) < 1e-5
+assert abs(designers_rule_row['memory'] - 249.263726) < 1e-5
+assert best_designers_rule['bg'] == 246
+assert abs(best_designers_rule['data'] - 247.540103) < 1e-5
+assert abs(best_designers_rule['time'] - 255.896018) < 1e-5
+print('designers rule improvement', f"{designers_rule_row['time'] - best_designers_rule['time']:.6f}")
+
 # Illustrative disjoint-pair second pass, then direct-observation third pass.
 # For the second pass at most 2^135 bins can hold one unmatched observation.
 m2 = log_equations(TAU_BEST, 136, 2)
@@ -88,7 +120,7 @@ print(f'combined data={logsum(best["data"], n2, n3):.9f} '
       f'combined time={logsum(best["time"], t2, t3):.9f}')
 print(f'three-pass success lower bound by union bound={1 - 3*(1-PS):.9f}')
 
-# Compare YJM20's order-of-magnitude rule with the separately specified
+# Compare YJM20's heuristic scaling rule with the separately specified
 # Gaussian test at alpha=2^-32 and beta=2^-17.  The underlying sample
 # independence and normal approximation remain assumptions.
 alpha, beta = 2.0 ** -32, 2.0 ** -17

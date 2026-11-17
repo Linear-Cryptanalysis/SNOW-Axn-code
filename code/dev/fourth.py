@@ -1,5 +1,5 @@
-# Sum tau^k over the exact profile, and the attack table under the check-level rule
-#   rho_eff^2 = sum tau^4   (instead of the paper's rho = sum tau^2).
+"""Sum tau^k over the exact profile, and the attack table under the check-level rule rho_eff^2 = sum tau^4   (instead of the paper's rho = sum tau^2)."""
+
 import sys, io, contextlib, math
 import numpy as np
 sys.path.insert(0, r'C:\Users\Lenovo\AppData\Local\Temp\snowa_study')

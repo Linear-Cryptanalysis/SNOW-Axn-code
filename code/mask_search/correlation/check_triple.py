@@ -1,8 +1,8 @@
-"""Recompute the correlation of the optimal triple of Eq. (19) from its bytes.
+"""Recompute the correlation of the optimal triple of Eq. (11) from its bytes.
 
 Inputs: the mask bytes printed in the paper, hard-coded below; verify.py tables.
 Outputs: one line with the three masks and log2 tau, expected -54.771.
-Paper object: Eq. (19) and Table 3; a one-off check next to verify.py.
+Paper object: Eq. (11); a one-off check next to verify.py.
 """
 
 import sys, os, io, math, contextlib

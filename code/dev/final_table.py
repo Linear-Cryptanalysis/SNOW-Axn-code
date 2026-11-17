@@ -1,7 +1,5 @@
-# Verification + the corrected tables.
-# Rule: the decoder observes the folded parity check, so the per-mask quantity is
-#   rho_i = tau_i^2, and the family enters through sum rho_i^2 = sum tau_i^4.
-#   Eq.(5) is kept, with rho = (sum tau^4)^{1/2}.
+"""Verification + the corrected tables. Rule: the decoder observes the folded parity check, so the per-mask quantity is rho_i = tau_i^2, and the family enters through sum rho_i^2 = sum tau_i^4. Eq.(5) is kept, with rho = (sum tau^4)^{1/2}."""
+
 import sys, io, contextlib, math
 import numpy as np
 sys.path.insert(0, r'C:\Users\Lenovo\AppData\Local\Temp\snowa_study')

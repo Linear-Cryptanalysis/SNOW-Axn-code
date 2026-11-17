@@ -1,4 +1,4 @@
-"""Two basis-selection strategies over the correlation profile, both priced by
+"""Two basis-selection strategies over the correlation profile, both assigned a cost by
 Theorem 4 of [ZLM+25] with v = k and d1 = k.
 
 (a) nested: the k strongest masks of the profile;
@@ -145,7 +145,7 @@ def log2_sei(lg):
 
 ZERO = (np.zeros((1, 16), np.uint8),) * 3 + (np.zeros((1, 16), np.uint8), np.zeros((1, 16), np.uint8))
 
-def price(L, k):
+def cost(L, k):
     Nreq = 4 * k * math.log(2) / float(np.exp2(L))
     T = 2 * Nreq + k * 2 ** k
     return Nreq, T, k * 2 ** k
@@ -161,7 +161,7 @@ for k in range(1, 21):
     L = log2_sei(lg_array(V))
     assert L >= prev - 1e-9, 'SEI decreased at k=%d' % k
     prev = L
-    Nreq, T, mem = price(L, k)
+    Nreq, T, mem = cost(L, k)
     print('%2d %13.4f %10.4f %10.4f' % (k, L, math.log2(Nreq), math.log2(T)))
     sei_list.append(L)
     if bestn is None or T < bestn[0]:
@@ -187,7 +187,7 @@ for k in range(1, 13):
             pickL, pick, pickV = L, idx, W
     assert pickL >= prev - 1e-9, 'SEI decreased at k=%d' % k
     prev = pickL; V = pickV; used.append(pick)
-    Nreq, T, mem = price(pickL, k)
+    Nreq, T, mem = cost(pickL, k)
     print('%2d %13.4f %10.4f %10.4f  %s' % (k, pickL, math.log2(Nreq), math.log2(T), bytes(cands[pick][0]).hex()))
     if bestg is None or T < bestg[0]:
         bestg = (T, k, pickL)

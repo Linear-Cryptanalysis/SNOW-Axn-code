@@ -1,5 +1,5 @@
-# The 24 strongest are 22 masks + 2 of the 4 at level 8.  Screen all 6 choices by
-# the rank of the (B,C) projection (cheap), then fully enumerate W for the good ones.
+"""The 24 strongest are 22 masks + 2 of the 4 at level 8.  Screen all 6 choices by the rank of the (B,C) projection (cheap), then fully enumerate W for the good ones."""
+
 import sys, io, contextlib, math, itertools, time
 import numpy as np
 import os, sys

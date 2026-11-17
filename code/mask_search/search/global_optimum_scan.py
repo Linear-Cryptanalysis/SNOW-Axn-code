@@ -2,7 +2,7 @@
 
 Run from any directory with `python -B global_optimum_scan.py`.  The S-box and
 linear layers come from verify.py.  Support feasibility is checked separately
-by global_support_census.cs and global_support_verify.cs.
+by global_support_enumeration.cs and global_support_verify.cs.
 """
 import contextlib
 import io
@@ -121,7 +121,7 @@ for pattern, expected_row in expected.items():
             cb = b[:, i] ^ cv[i]
             two = max_two[cb, cv[i]]
             third = LAT[pb[:, i], qv[i]]
-            # With strict support, nonzero LAT magnitudes are at most 32.
+            # With strict support, nonzero LAT absolute values are at most 32.
             assert int(third.max()) <= 8 and int(two.max()) <= 64
             score *= third.astype(np.uint64) * two.astype(np.uint64)
         nonzero += int(np.count_nonzero(score))
@@ -149,7 +149,7 @@ for pattern, expected_row in expected.items():
     assert actual == expected_row, (pattern, actual, expected_row)
     if pattern == 0x7070:
         assert len(levels) == 3295
-        print(f'  exact magnitude levels={len(levels)}')
+        print(f'  exact levels={len(levels)}')
         expected_logs = {2: -213.38180625962818, 3: -326.18715805988114,
                          4: -437.0841790171351, 5: -547.1403922570111,
                          6: -656.9258006008943}

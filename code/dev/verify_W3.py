@@ -1,4 +1,5 @@
-# Hypothesis: W is spanned by the 26 masks of levels 0..8 (rank 24, two dependencies).
+"""Hypothesis: W is spanned by the 26 masks of levels 0..8 (rank 24, two dependencies)."""
+
 import sys, io, contextlib, math, time
 import numpy as np
 sys.path.insert(0, r'C:\Users\Lenovo\AppData\Local\Temp\snowa_study')

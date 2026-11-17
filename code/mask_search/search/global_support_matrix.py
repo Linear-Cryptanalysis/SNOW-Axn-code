@@ -1,4 +1,4 @@
-"""Independently validate the byte-field matrices used by the support census.
+"""Independently validate the byte-field matrices used by the support enumeration.
 
 The field is GF(2^8) modulo 0x11b.  Bit masks are converted to trace-dual
 field coordinates before applying field matrices.  Run with Python 3.
@@ -147,12 +147,12 @@ for j in range(128):
         assert pullback(cols, 1 << j) == field_pullback(matrix, 1 << j)
 print('Both field matrices agree with all 256 binary basis pullbacks.')
 
-# Independently check the hard-coded first census matrix.
-source = (Path(__file__).resolve().parent / 'global_support_census.cs').read_text(encoding='utf-8')
+# Independently check the hard-coded first enumeration matrix.
+source = (Path(__file__).resolve().parent / 'global_support_enumeration.cs').read_text(encoding='utf-8')
 section = source.split('private static readonly byte[,] Q = {', 1)[1].split('};', 1)[0]
 printed_matrix = [int(x) for x in re.findall(r'\d+', section)]
 assert printed_matrix == [x for row in q_matrix for x in row]
-print('The census Q matrix matches the independently derived trace-dual matrix.')
+print('The enumeration Q matrix matches the independently derived trace-dual matrix.')
 
 # The four P blocks are independent and every square minor is invertible.
 minor_count = 0

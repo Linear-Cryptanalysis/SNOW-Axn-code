@@ -1,5 +1,5 @@
-# Broader search: can the four meaningful column conditions of SNOW-A.py be satisfied
-# by ANY natural assignment of the paper's masks (incl. sigma and L images)?
+"""Broader search: can the four meaningful column conditions of SNOW-A.py be satisfied by ANY natural assignment of the paper's masks (incl. sigma and L images)?"""
+
 import sys, io, contextlib, itertools
 sys.path.insert(0, r'C:\Users\Lenovo\AppData\Local\Temp\snowa_study')
 with contextlib.redirect_stdout(io.StringIO()):
