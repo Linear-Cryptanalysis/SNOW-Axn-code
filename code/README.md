@@ -117,6 +117,7 @@ in bg_opt.py, and the total memory is the stored samples.
 | Script | Computes | Expected output |
 | --- | --- | --- |
 | `cost.py` | Table 5 (scan for v = 1..26 at `Bg = 214`) | `v = 26: log2 N = 226.010` |
+| `cost_w29.py` | Table 1 row (d), Table 6 and the final costs of Section 4.2 | `v = 29`, `B_g = 241`; data `2^248.952`, time `2^250.208`, memory `2^248.952`; gains `0.907/0.602/0.907` |
 | `bg_opt.py` | the B_g scan of Section 4.2 with the two later passes and the sensitivity to the three further supports | `B_g = 78`; first stage `N = 224.554`, `T = 230.309`, `M = 82.700`; later passes `216` bits (`N = 228.927`, `T = 229.538`) and `218` bits (`N = 118.396`, `T = 224.907`); total data `228.927`, time `230.996`, memory `228.927`; gain `19.923` bits in time, `21.101` in data; with capacity `2^-216.520327` the time falls `0.167` bits, data and memory unchanged |
 | `coset_other.py` | per-support effect on the capacity of W (Section 4.2) | each strongest further triple gives `coset sum4 = 2^-220.623482`; `log2 SEI_2` rises by `0.098` |
 | `bg_scan_v.py` | auxiliary robustness scan over v and B_g with the two later passes, not quoted in the paper; the printed v=26 curve around the optimum reproduces Table 6 | auxiliary scan only; uses the corrected first-stage accounting of Section 4.2 |
@@ -168,7 +169,7 @@ selection rule in the file. Its SHA-256 is
 is the output of the last run of `verify_list.py`. The run time is printed but not written,
 so the log is byte-identical across runs.
 
-`../data/w26.json` holds the 26 triples that span V_26, the 22 of levels 0 to 7 and the
+`../data/w29.json` holds the 29 triples that span W; `w26.json` holds its first 26, the 22 of levels 0 to 7 and the
 four of level 8, with the selection rule in the file. Its SHA-256 is
 `112361d5c62f0104bda51a64240812d47f597032b73e13fdcd6ba5a497f4bbeb`; `sei_v26.py`
 enumerates the 26-dimensional span in four cosets of dimension 24.
