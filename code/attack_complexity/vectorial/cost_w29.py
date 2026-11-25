@@ -6,16 +6,16 @@ Model of the paper:
   N_c  = sqrt(M 2^(l+1-B_g))
   T_1  = 2 (M 2^(l-B_g))^(1/2) + B_g 2^B_g
   M_1  = max(N_c, v 2^B_g)
-The two later passes use p_s = 0.966667 (Section 3.4) and contribute data
-2^226.715 and time 2^228.560.
+The two later passes use p_s = 0.999992 and contribute data 2^227.356
+and time 2^228.515; the total data/time are dominated by the first stage.
 """
 import math
 
 L = 512
 V = 29
 SEI2 = 2.0 ** -216.520327
-LATER_DATA = 2.0 ** 226.715
-LATER_TIME = 2.0 ** 228.560
+LATER_DATA = 2.0 ** 227.356
+LATER_TIME = 2.0 ** 228.515
 SINGLE_DATA = 249.859
 SINGLE_TIME = 250.810
 
