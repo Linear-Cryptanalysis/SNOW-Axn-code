@@ -30,7 +30,7 @@ the strongest approximations give a distinguisher on the 26-dimensional space W 
 
 ## Links
 
-The repository is <https://github.com/makabakaTerry/SNOW-Axn-code>.
+The repository is <https://github.com/Linear-Cryptanalysis/SNOW-Axn-code>.
 
 ## Requirements
 
