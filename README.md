@@ -11,7 +11,7 @@ with eighteen active S-boxes leaves four supports, and screening those with fewe
 leaves none. Their exact evaluation gives the optimum 2^-54.771, which is 0.971 bits
 above the designers' trail and 0.771 bits short of the 2^-54 bound implied by their count
 of active S-boxes. Given the keystream, the optimal approximation recovers the LFSR state at
-2^250.810 in time and 2^249.859 in data and memory. The 29-triple vectorial attack uses the best triple of all four feasible supports and reaches 2^250.208 in time and 2^248.952 in data and memory. The remaining 384 FSM bits
+2^250.810 in time and 2^249.859 in data and memory. The 29-triple vectorial attack uses the best triple of all four feasible supports and reaches 2^250.208 in time and 2^248.952 in data and memory at overall success probability 0.89998. The remaining 384 FSM bits
 follow with 2^128 guesses to give the full 896-bit internal state, while without a known state
 the strongest approximations give a distinguisher on the 26-dimensional space W that needs
 2^327.184 keystream words.
