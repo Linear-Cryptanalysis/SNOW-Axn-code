@@ -18,7 +18,7 @@ Every script listed below was rerun from a clean copy on 2026-11-13, the scripts
         vectorial/        vectorial fast correlation attack
         distinguishing/   distinguishing attack
       reduced_scale/      reduced-scale analogue of the cipher and its Monte Carlo
-                          and exact correlation experiments (Appendix B)
+                          and exact correlation experiments (supplementary reduced-scale experiments)
       dev/                development history, not needed for reproduction
 
 ## Requirements and how to run
@@ -142,7 +142,7 @@ and Maximov (2020). Gives the cost of Section 4.3.
 ## Reduced-scale validation
 
 The scripts in `reduced_scale/` implement the byte analogue of SNOW-Axn used in
-Appendix B: an eight-byte LFSR with the byte recurrence and the multipliers of the
+supplementary reduced-scale experiments: an eight-byte LFSR with the byte recurrence and the multipliers of the
 design, a three-byte FSM with the AES S-box, the bit rotation sigma and L = I, and
 the three-word linear approximation. They run with Python 3.10 and numpy only; on a
 machine whose default `python` is a different distribution without numpy, use
@@ -151,11 +151,11 @@ machine whose default `python` is a different distribution without numpy, use
 | Script | Paper object | Expected output |
 | --- | --- | --- |
 | `build_tables.py` | the tables of the analogue (GF(2^8), S-box, alpha, beta, sigma, LAT, ILAT) | the tables used by the other scripts, built from scratch |
-| `verify.py` | Appendix B, structure checks | all checks V1 to V9 pass; the piling-up identity at clock zero by exhaustive enumeration; the two equivalent forms of e(t); both mask conventions |
-| `search_masks.py` | Appendix B, mask search over 255^3 masks | `111` triples with `log2 abs(tau) = -9.000`; three linearly independent; predicted span capacity `2^-34.415` |
+| `verify.py` | supplementary reduced-scale experiments, structure checks | all checks V1 to V9 pass; the piling-up identity at clock zero by exhaustive enumeration; the two equivalent forms of e(t); both mask conventions |
+| `search_masks.py` | supplementary reduced-scale experiments, mask search over 255^3 masks | `111` triples with `log2 abs(tau) = -9.000`; three linearly independent; predicted span capacity `2^-34.415` |
 | `monte_carlo.py` | Table 8, single-clock estimates at N = 2^24 and 2^26 | `t1 = +1.9688e-3`, `t2 = +1.9155e-3`, `t3 = +1.8990e-3`, `w5 = +1.016e-4`, `w7 = -5.52e-5` at N = 2^26, standard error `2^-13` |
 | `exact_folded.py` | Table 8, folded correlations and capacity | `d = 1` ratios `-4.0 / -6.0 / -50.0 / -409.6 / 0`; `d = 3` ratio exactly one; capacity `d = 1` `2^-24.681` against the prediction `2^-34.415`; `d = 3` capacity `2^-34.415` |
-| `collect_results.py` | regenerates the tables of the experiment report | the tables quoted in Appendix B |
+| `collect_results.py` | regenerates the tables of the experiment report | the tables quoted in supplementary reduced-scale experiments |
 
 The Monte Carlo run at N = 2^26 takes about 47 seconds, the exact folded computation
 about 6 seconds, and the remaining scripts a few seconds each.

@@ -50,12 +50,12 @@ recompute internal quantities that the argument consumes (bytewise maximisers,
 power sums, basis selections and feasibility witnesses). Their expected values
 are listed in `code/README.md`.
 
-## Reduced-scale validation (Appendix B)
+## Reduced-scale validation (supplementary)
 
 | Paper object | Script | Observed output |
 | --- | --- | --- |
-| Appendix B, structure of the analogue | `reduced_scale/verify.py` | all checks V1 to V9 pass; S-box and multipliers as specified; the two forms of e(t) agree bitwise; the piling-up identity holds exactly at clock zero by exhaustive enumeration over 2^24 register states; the paper-convention formula checks by exhaustive enumeration |
-| Appendix B, mask search | `reduced_scale/search_masks.py` | 111 triples with log2 abs(tau) = -9.000; three linearly independent basis triples; predicted span capacity 2^-34.415 |
+| Supplementary reduced-scale checks, structure of the analogue | `reduced_scale/verify.py` | all checks V1 to V9 pass; S-box and multipliers as specified; the two forms of e(t) agree bitwise; the piling-up identity holds exactly at clock zero by exhaustive enumeration over 2^24 register states; the paper-convention formula checks by exhaustive enumeration |
+| Supplementary reduced-scale checks, mask search | `reduced_scale/search_masks.py` | 111 triples with log2 abs(tau) = -9.000; three linearly independent basis triples; predicted span capacity 2^-34.415 |
 | Table 8, single-clock estimates | `reduced_scale/monte_carlo.py` | at N=2^26: t1 +1.9688e-3, t2 +1.9155e-3, t3 +1.8990e-3, w5 +1.016e-4, w7 -5.52e-5, standard error 2^-13; every estimate within one standard error of the prediction |
 | Table 8, folded correlations and capacity | `reduced_scale/exact_folded.py` | exact over 2^24 register states: d=1 ratios -4.0, -6.0, -50.0, -409.6 and 0; d=3 ratio exactly one; capacity d=1 2^-24.681 against the prediction 2^-34.415, and d=3 2^-34.415 |
 

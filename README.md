@@ -11,7 +11,7 @@ with eighteen active S-boxes leaves four supports, and screening those with fewe
 leaves none. Their exact evaluation gives the optimum 2^-54.771, which is 0.971 bits
 above the designers' trail and 0.771 bits short of the 2^-54 bound implied by their count
 of active S-boxes. Given the keystream, the optimal approximation recovers the LFSR state at
-2^250.919 in time and 2^250.028 in data and memory, and the remaining 384 FSM bits
+2^250.810 in time and 2^249.859 in data and memory, and the remaining 384 FSM bits
 follow with 2^128 guesses to give the full 896-bit internal state, while without a known state
 the strongest approximations give a distinguisher on the 26-dimensional space W that needs
 2^327.184 keystream words.
@@ -30,7 +30,7 @@ the strongest approximations give a distinguisher on the 26-dimensional space W 
 
 ## Links
 
-The repository is <https://github.com/StreamCipherlinear/SNOW-Axn>.
+The repository is <https://github.com/makabakaTerry/SNOW-Axn-code>.
 
 ## Requirements
 
