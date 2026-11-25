@@ -75,9 +75,9 @@ for v, s in SEI.items():
     rows = []
     for Bg in range(1, L + 1):
         N1 = 4 * Bg * math.log(2) / S
-        T1 = 2 * N1 + Bg * 2.0 ** Bg
+        T1 = (2 + 2 * v) * N1 + Bg * 2.0 ** Bg
         _, B2, B3, dl, tl = later_passes(L - Bg)
-        data = max(N1, dl)
+        data = max(6 * N1, dl)
         time = T1 + tl
         mem = max(v * 2.0 ** Bg, data)
         rows.append((max(data, time, mem), Bg, data, time, mem, B2, B3))
@@ -102,14 +102,14 @@ print("limit v->inf (time only): Bg=%d data=2^%.3f time=2^%.3f"
 print("interior minimum of the metric at v of order 2^%.2f (memory v 2^Bg reaches the time)"
       % (math.log2(t) - Bg))
 
-# curve of the largest figure at v = 26 around its minimum (Appendix A)
+# curve of the largest figure at v = 26 around its minimum (Table 6)
 S26 = 2.0 ** SEI[26]
 print("v=26 curve:")
-for Bg in range(210, 219):
+for Bg in range(74, 83):
     N1 = 4 * Bg * math.log(2) / S26
-    T1 = 2 * N1 + Bg * 2.0 ** Bg
+    T1 = (2 + 2 * 26) * N1 + Bg * 2.0 ** Bg
     _, B2, B3, dl, tl = later_passes(L - Bg)
-    data = max(N1, dl)
+    data = max(6 * N1, dl)
     time = T1 + tl
     mem = max(26 * 2.0 ** Bg, data)
     print("%d & %.3f & %.3f & %.3f & %.3f" % (Bg, math.log2(data), math.log2(time), math.log2(mem), math.log2(max(data, time, mem))))

@@ -3,11 +3,11 @@
 The code reproduces the computational results of the paper "Linear Cryptanalysis of SNOW-Axn". It is organised in two categories: the mask search,
 which establishes the correlation results on the three-word approximation, and the attack
 complexity, which gives the cost of the single-approximation, vectorial and distinguishing attacks.
-Every script listed below was rerun from a clean copy on 2026-11-13, and the observed values are
-recorded in `VERIFICATION.md`.
+Every script listed below was rerun from a clean copy on 2026-11-13, the scripts added on 2026-11-18 and 2026-11-21 were rerun on those dates, and the observed values are recorded in `VERIFICATION.md`.
 
     code/
       README.md
+      VERIFICATION.md
       mask_search/
         correlation/      LAT and ILAT tables, the per-byte factorisation, and the
                           exact correlation of the optimal and designers' triples
@@ -17,6 +17,8 @@ recorded in `VERIFICATION.md`.
         single/           single-approximation fast correlation attack
         vectorial/        vectorial fast correlation attack
         distinguishing/   distinguishing attack
+      reduced_scale/      reduced-scale analogue of the cipher and its Monte Carlo
+                          and exact correlation experiments (Appendix B)
       dev/                development history, not needed for reproduction
 
 ## Requirements and how to run
@@ -51,10 +53,11 @@ absolute values 32, 28 and 20 and total correlation 2^-55.7414.
 | `unit_tau.py` | Eq. (11), byte-by-byte unit check | `log2 tau = -54.77058031176958` |
 | `verify_exact.py` | Section 4.1 correlation profile | 11,093,111 non-zero, max `log2\|tau\| = -54.7706` at one pair `(B,C)`, 3,295 levels |
 | `profile.py` | Section 4.1 by exhaustive enumeration of Theta_mu | 11,093,111 non-zero, max `log2\|tau\| = -54.7706`, 3,295 distinct levels |
-| `levels.py` | Table 4, the level list near the head | `all levels 0..7 (22 masks) + 2 of the 4 masks at level 8`; `uniquely determined: False` |
+| `levels.py` | Table 4, the level list near the head | `all levels 0..7 (22 masks) + 4 of the 4 masks at level 8 (-55.76355)`; `uniquely determined: True` |
 | `ties.py` | number of bytewise maximizers among the 24 strongest | 11,476 of 65,536 pairs have more than one maximiser; 72 tied active bytes among the 24 masks |
 | `fourth2.py` | profile sums and the two cost rules behind Section 4.2 | `sum tau^2 = 2^-97.938`, `sum tau^4 = 2^-213.382`, `sum tau^6 = 2^-326.187` |
 | `t24.py` | tau^2, tau^4 and the cross-term bound over the 24 strongest | `log2 sum tau^2 = -106.272`, `log2 sum tau^4 = -216.881`, relative bound `-69.003` |
+| `triple_count.py` | Section 4.1 pair counts and the approximation count of the necessary condition in Section 4.2 | nonzero pairs `11,093,111 / 11,193,038 / 11,032,069 / 11,082,491` (as in the paper); approximations `538,930,000 = 2^29.005523` for the optimal support and `2,154,559,625 = 2^31.004746` over the four supports; the condition holds |
 | `verify_W2.py` | span of one 22 + 2 selection of the 24 strongest (used by `ties.py`) | `python verify_W2.py 22,24`: rank 24, 6,254,429 non-zero; the canonical (22,23) selection gives 6,138,951 and is enumerated by `verify_list.py` |
 
 ### search
@@ -103,33 +106,59 @@ Gives the cost of Section 3.4.
 
 Vectorial fast correlation attack, Zhang, Liu, Meier, Sun, Feng and Wu (ASIACRYPT
 2025). Gives the cost of Section 4.2. The statistic is a vector over the space, one sample carries
-the whole vector, and the rule assigns N = 4 kappa ln2 / SEI(V_v) keystream words,
-2N + kappa 2^kappa in time and v 2^kappa words of memory for the transform, where kappa
-is the number of state bits decoded in one step and v is the dimension of the space. The working point kappa = 214 is optimized
+the whole vector, and the rule assigns N = 4 kappa ln2 / SEI(V_v) samples. Each sample is a folded check of
+two clocks with three masked-word parities, so generating the v components costs 2vN
+word operations; with v = 26 the first-stage time is 54N + kappa 2^kappa and the
+data are 6N words, because samples are taken six clocks apart. The memory is
+v 2^kappa words for the transform, where kappa is the number of state bits decoded in
+one step and v is the dimension of the space. The attack does not use the vectorial code-reduction of the framework, so the correlation introduced by the reduction is one. The working point kappa = 78 is optimized
 in bg_opt.py, and the total memory is the stored samples.
 
 | Script | Computes | Expected output |
 | --- | --- | --- |
-| `cost.py` | Table 5 (scan for v = 1..26 at the working point) | `v = 26: log2 N = 226.010` |
-| `bg_opt.py` | the B_g scan of Section 4.2 with the two later passes | `B_g = 214`, total data `227.857`, time `228.918`, memory `227.857`, gain `22.001` bits in time, `22.171` in data |
+| `cost.py` | Table 5 (scan for v = 1..26 at `Bg = 214`) | `v = 26: log2 N = 226.010` |
+| `bg_opt.py` | the B_g scan of Section 4.2 with the two later passes and the sensitivity to the three further supports | `B_g = 78`; first stage `N = 224.554`, `T = 230.309`, `M = 82.700`; later passes `216` bits (`N = 228.927`, `T = 229.538`) and `218` bits (`N = 118.396`, `T = 224.907`); total data `228.927`, time `230.996`, memory `228.927`; gain `19.923` bits in time, `21.101` in data; with capacity `2^-216.520327` the time falls `0.167` bits, data and memory unchanged |
 | `coset_other.py` | per-support effect on the capacity of W (Section 4.2) | each strongest further triple gives `coset sum4 = 2^-220.623482`; `log2 SEI_2` rises by `0.098` |
-| `bg_scan_v.py` | auxiliary robustness scan over v and B_g with the two later passes, not quoted in the paper | `v = 24..29: Bg = 214, data = 227.857`; time `228.931/228.924/228.918/228.911/228.903/228.900`; time limit `2^228.471`; curve of the largest figure at v=26 around `Bg = 214` (Appendix A, Table 7) |
+| `bg_scan_v.py` | auxiliary robustness scan over v and B_g with the two later passes, not quoted in the paper; the printed v=26 curve around the optimum reproduces Table 6 | auxiliary scan only; uses the corrected first-stage accounting of Section 4.2 |
 | `coset_v28.py` | capacity of V_28 (Section 4.2) | `coset sum4 = 2^-222.395499`; `SEI_2(V_28) = 2^-216.741826`; first-stage data falls 0.029 bits |
 | `coset_v27.py` | capacity of V_27 (Section 4.2) | `coset sum4 = 2^-222.560324`; `SEI_2(V_27) = 2^-216.770773`; first-stage data falls 0.026 bits |
-| `coset_all.py` | total effect of the three further feasible supports on the capacity of W (Section 4.2) | singles `2^-220.623482`, pairs `2^-441.246964`/`2^-373.606336`, triple `2^-594.229818`; total `log2 SEI_2` rise `0.277`; data fall `0.277` bits |
+| `coset_all.py` | total effect of the three further feasible supports on the capacity of W (Section 4.2) | singles `2^-220.623482`, pairs `2^-441.246964`/`2^-373.606336`, triple `2^-594.229818`; total `log2 SEI_2` rise `0.2768`; first-stage data fall `0.2768` bits (the change of the totals is printed by `bg_opt.py`) |
 | `sei_v26.py` | Table 5 rows v = 25, 26 and the numbers of Sections 4.2 and 4.3 (power sums of V_26) | `SEI_2(V_26) = 2^-216.797094`, `SEI_3(V_26) = 2^-327.184547`, `log2 N = 226.010` |
+| `tie_sensitivity.py` | tie-breaking rule of the 26 representatives (Section 4.2): 78 tied active bytes, and the power sums for the smallest, largest and random maximizer | `rank 26` for every rule; smallest maximizer reproduces the stored basis; `log2 SEI_2 = -216.797094` (smallest), `-216.798145` (largest), `-216.829548` (random seed 20261118); `log2 SEI_3 = -327.184547 / -327.184618 / -327.193051`; the change of `log2 N` is at most `0.017` bits |
 | `sei_nested.json`, `sei_nested_24.json` | cached capacities for v = 1..20 and v = 21..24, read by `cost.py` | the same files that `verify_space.py` and `push_k24.py` regenerate |
 
 ### distinguishing
 
-Distinguishing attack, Nyberg and Hermelin (2007) and Yang, Johansson and Maximov (2020).
-Gives the cost of Section 4.3.
+Distinguishing attack, linear masking of Nyberg and Wallen (2006), the multidimensional
+capacity of Nyberg and Hermelin (2007) and the vectorized approximations of Yang, Johansson
+and Maximov (2020). Gives the cost of Section 4.3.
 
 | Script | Computes | Expected output |
 | --- | --- | --- |
 | `profile_supports.py` | profiles of the four feasible supports (Section 4.1) | optimal `11093111/3295/-54.771`; others `11193038/3165`, `11032069/3266`, `11082491/3299`, all `-55.156` |
 | `verify_list.py` | enumerates the earlier 24-mask span of `../data/w24.json` (auxiliary; the W of the paper is V_26 in `sei_v26.py`) | rank 24, 6,138,951 non-zero, `log2_sum4=-216.8436669675`, `log2_sum6=-327.2032268545` |
 | `verify_mask_relations.py` | separated-time linear masking kernel ranks | `T=(0, 2, 3) rank=383 nullity=1`, `T=(0, 1, 2, 4) rank=480 nullity=32` |
+
+## Reduced-scale validation
+
+The scripts in `reduced_scale/` implement the byte analogue of SNOW-Axn used in
+Appendix B: an eight-byte LFSR with the byte recurrence and the multipliers of the
+design, a three-byte FSM with the AES S-box, the bit rotation sigma and L = I, and
+the three-word linear approximation. They run with Python 3.10 and numpy only; on a
+machine whose default `python` is a different distribution without numpy, use
+`python3.10`.
+
+| Script | Paper object | Expected output |
+| --- | --- | --- |
+| `build_tables.py` | the tables of the analogue (GF(2^8), S-box, alpha, beta, sigma, LAT, ILAT) | the tables used by the other scripts, built from scratch |
+| `verify.py` | Appendix B, structure checks | all checks V1 to V9 pass; the piling-up identity at clock zero by exhaustive enumeration; the two equivalent forms of e(t); both mask conventions |
+| `search_masks.py` | Appendix B, mask search over 255^3 masks | `111` triples with `log2 abs(tau) = -9.000`; three linearly independent; predicted span capacity `2^-34.415` |
+| `monte_carlo.py` | Table 8, single-clock estimates at N = 2^24 and 2^26 | `t1 = +1.9688e-3`, `t2 = +1.9155e-3`, `t3 = +1.8990e-3`, `w5 = +1.016e-4`, `w7 = -5.52e-5` at N = 2^26, standard error `2^-13` |
+| `exact_folded.py` | Table 8, folded correlations and capacity | `d = 1` ratios `-4.0 / -6.0 / -50.0 / -409.6 / 0`; `d = 3` ratio exactly one; capacity `d = 1` `2^-24.681` against the prediction `2^-34.415`; `d = 3` capacity `2^-34.415` |
+| `collect_results.py` | regenerates the tables of the experiment report | the tables quoted in Appendix B |
+
+The Monte Carlo run at N = 2^26 takes about 47 seconds, the exact folded computation
+about 6 seconds, and the remaining scripts a few seconds each.
 
 ## Data
 
@@ -153,10 +182,12 @@ same files, byte for byte, next to themselves in `mask_search/search/`.
 All Python scripts require Python 3.10 or newer with numpy (the last full run used Python
 3.10.11 and numpy 2.0.2). Every script outside `dev/` locates `verify.py` and the data
 from its own path, so it can be run from any directory. `verify_list.py` enumerates 2^24
-sums and takes about two minutes, `push_k24.py` about one minute, and `verify_exact.py`,
+sums and takes about two minutes, `push_k24.py` about one minute, `tie_sensitivity.py`
+about one minute, `triple_count.py` about twenty seconds, and `verify_exact.py`,
 `profile.py`, `t24.py`, `screen24.py` and the nested searches tens of seconds. The two C#
 enumerations take about ten seconds each including the build, and the other scripts
-finish in seconds.
+finish in seconds. In `reduced_scale/` the Monte Carlo run at N = 2^26 takes about
+47 seconds, the exact folded computation about 6 seconds, and the rest a few seconds each.
 
 ## Licence
 

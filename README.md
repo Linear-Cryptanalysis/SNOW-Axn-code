@@ -10,8 +10,9 @@ approximation exists. The paper settles that model exactly: enumerating every su
 with eighteen active S-boxes leaves four supports, and screening those with fewer
 leaves none. Their exact evaluation gives the optimum 2^-54.771, which is 0.971 bits
 above the designers' trail and 0.771 bits short of the 2^-54 bound implied by their count
-of active S-boxes. With a known LFSR state the optimal approximation recovers the 512-bit
-state at 2^250.919 in time and 2^250.028 in data and memory, while without a known state
+of active S-boxes. Given the keystream, the optimal approximation recovers the LFSR state at
+2^250.919 in time and 2^250.028 in data and memory, and the remaining 384 FSM bits
+follow with 2^128 guesses to give the full 896-bit internal state, while without a known state
 the strongest approximations give a distinguisher on the 26-dimensional space W that needs
 2^327.184 keystream words.
 
@@ -57,13 +58,13 @@ A per-script verification record is in `code/VERIFICATION.md`.
 | Section 3.3, the same enumeration by row-space membership | `code/mask_search/search/global_support_verify.cs` | the same totals and the same four hits |
 | Section 3.3 byte matrices and MDS blocks (proof of the four supports) | `code/mask_search/search/global_support_matrix.py` | both matrices agree on all 256 basis pullbacks, all 276 minors nonzero |
 | Section 3.3 and Table 2: exact optimum of the four supports | `code/mask_search/search/global_optimum_scan.py` | `mu=7070 ... log2tau=-54.770580312`, one optimal pair with 100 triples; three at `-55.155870468` |
-| Table 3 and Eq. (12): correlation-attack cost | `code/attack_complexity/single/audit_attack_costs.py` | `bg=241 ... time=250.919215250`; designers' trail under the rule of Section 3.4, `time=252.201402061`; designers' rule at the exact trail, `time=257.186283588` |
+| Table 3 and Eq. (12): correlation-attack cost | `code/attack_complexity/single/audit_attack_costs.py` | `bg=241 ... time=250.919215250`; designers' trail under the rule of Section 3.4, `time=252.201402061`; designers' rule at the exact trail, `time=257.186283588`; designers' rule at the optimal approximation, `time=255.896018098` |
 | Auxiliary 24-mask span (development check for Section 4.2): fourth and sixth power sums | `code/attack_complexity/distinguishing/verify_list.py` | rank 24, 6,138,951 non-zero, `log2_sum4=-216.8436669675`, `log2_sum6=-327.2032268545` |
 | Table 5 rows v = 25, 26 and the numbers of Sections 4.2 and 4.3: power sums of V_26 | `code/attack_complexity/vectorial/sei_v26.py` | `SEI_2(V_26) = 2^-216.797094`, `SEI_3(V_26) = 2^-327.184547`, `log2 N at v=26 = 226.0100` |
 | Section 4.3: separated-time kernels | `code/attack_complexity/distinguishing/verify_mask_relations.py` | `T=(0, 2, 3) rank=383 nullity=1`, `T=(0, 1, 2, 4) rank=480 nullity=32` |
-| Table 5 and the Result of Section 4.2: vectorial cost | `code/attack_complexity/vectorial/cost.py`, `bg_opt.py` | `v = 26` at the working point: `log2 N = 226.010`; `bg_opt.py`: `B_g = 214`, total data `227.857`, time `228.918`, memory `227.857`, gain `22.001` bits in time and `22.171` in data |
+| Table 5 and the Result of Section 4.2: vectorial cost | `code/attack_complexity/vectorial/cost.py`, `bg_opt.py` | `v = 26` at the working point: `log2 N = 226.010`; `bg_opt.py`: `B_g = 78`, total data `228.927`, time `230.996`, memory `228.927`, gain `19.923` bits in time and `21.101` in data |
 | Section 4.1: profiles of the four feasible supports | `code/mask_search/correlation/profile_supports.py` | optimal `11093111` pairs / `3295` levels / `-54.771`; others `11193038/3165`, `11032069/3266`, `11082491/3299`, all `-55.156` |
-| Section 4.2: capacities for v = 24..29 (auxiliary) | `code/attack_complexity/vectorial/bg_scan_v.py`, `coset_v27.py`, `coset_v28.py` | auxiliary robustness scan, not quoted in the paper: `Bg=214`, data `227.857`, time `228.931/228.924/228.918/228.911/228.903/228.900`, time limit `2^228.471`, curve minimum at `Bg=214` (Appendix A, Table 7) |
+| Section 4.2: capacities for v = 24..29 (auxiliary) | `code/attack_complexity/vectorial/bg_scan_v.py`, `coset_v27.py`, `coset_v28.py` | auxiliary robustness scan, not quoted in the paper; the printed v=26 curve around the optimum reproduces Table 6 |
 | Section 4.2: supports outside the profile | `code/attack_complexity/vectorial/coset_other.py`, `coset_all.py` | each further triple adds `0.098` bits to `log2 SEI_2`; all three add `0.277` bits (data fall `0.277`) |
 
 The remaining scripts support the argument rather than a single number. In

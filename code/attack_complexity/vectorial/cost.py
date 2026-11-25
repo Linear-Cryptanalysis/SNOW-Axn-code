@@ -4,7 +4,7 @@ Convention of the paper. The statistic is a vector over the space V_v, so one
 sample carries the whole vector and no pair of clocks has to collide. The rule
 of Zhang, Liu, Meier, Sun, Feng and Wu (ASIACRYPT 2025) then assigns
 
-    N = 4 kappa ln 2 / SEI(V_v),   T = 2N + kappa 2^kappa,   memory = v 2^kappa,
+    N = 4 kappa ln 2 / SEI(V_v),   T = 54N + kappa 2^kappa,   memory = v 2^kappa,
 
 where kappa is the number of state bits decoded in one step and v is the
 dimension of the space, which enters through the capacity and through the memory. The working
