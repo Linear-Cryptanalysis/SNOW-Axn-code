@@ -31,8 +31,7 @@ Expected:
     gains: data 2.403, time 2.287, memory 2.403
 
 `data/w29_opt.json` is the basis. The v = 29 point is the best point of the
-joint (v, B_g) scan, not a global optimality claim; v >= 30 is outside the
-exact scan.
+joint (v, B_g) scan, not a global optimality claim.
 
 ## 4. Distinguisher
 
