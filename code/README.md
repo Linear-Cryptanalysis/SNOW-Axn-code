@@ -27,8 +27,8 @@ The final vectorial result uses data/w29_opt.json and
 
     python code/attack_complexity/vectorial/cost_v29.py
 
-Expected: SEI_2(W) = 2^-211.540788, B_g = 239, data 2^247.456,
-time 2^248.523, memory 2^247.456, gains 2.403/2.287/2.403.
+Expected: SEI_2(W) = 2^-211.887010, B_g = 239, data 2^247.630,
+time 2^248.642, memory 2^247.630, gains 2.229/2.168/2.229.
 A minimal command list is in ../REPRODUCE.md.
 
 ## Requirements and how to run

@@ -23,12 +23,12 @@ Expected: the single-attack figures used in Table 1.
 Expected:
 
     basis triples: 29
-    SEI_2(W) = 2^-211.540788
+    SEI_2(W) = 2^-211.887010
     optimal B_g = 239
-    data  = 2^247.456
-    time  = 2^248.523
-    memory= 2^247.456
-    gains: data 2.403, time 2.287, memory 2.403
+    data  = 2^247.630
+    time  = 2^248.642
+    memory= 2^247.630
+    gains: data 2.229, time 2.168, memory 2.229
 
 `data/w29_opt.json` is the basis. The v = 29 point is the best point of the
 joint (v, B_g) scan, not a global optimality claim.

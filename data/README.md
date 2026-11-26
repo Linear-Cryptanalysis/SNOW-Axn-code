@@ -2,7 +2,7 @@
 
 | file | status | content |
 | --- | --- | --- |
-| `w29_opt.json` | **current** | 29 optimal triples spanning the paper's \(W\); rank 29, all four feasible supports, `log2 SEI_2 = -211.540788` |
+| `w29_opt.json` | **current** | 29 optimal triples spanning the paper's \(W\); rank 29, all four feasible supports, `log2 SEI_2 = -211.887010` |
 | `w26_opt.json` | historical | earlier 26-dimensional optimal basis used in the previous revision |
 | `w24_opt.json` | historical | earlier 24-dimensional optimal basis |
 | `w24.json` | historical | 24-triple basis from the earlier profile-only revision |
