@@ -13,7 +13,7 @@ above the designers' trail and 0.771 bits short of the 2^-54 bound implied by th
 of active S-boxes. Given the keystream, the optimal approximation recovers the LFSR state at
 2^250.810 in time and 2^249.859 in data and memory. The 29-triple vectorial attack selects 9 optimal triples from the leading support and 20 from the other three, and reaches 2^248.523 in time and 2^247.456 in data and memory at overall success probability 0.89998. The remaining 384 FSM bits
 follow with 2^128 guesses to give the full 896-bit internal state, while without a known state
-the strongest approximations give a distinguisher on the 26-dimensional space W that needs
+the strongest approximations give a distinguisher on the 26-dimensional space V_26 that needs
 2^327.184 keystream words.
 
 ## Repository layout
@@ -26,7 +26,28 @@ the strongest approximations give a distinguisher on the 26-dimensional space W 
                                        dimension checks, and the search for W
     code/attack_complexity/            single, vectorial and distinguishing attack costs
     code/dev/                          development history, not needed for reproduction
-    data/                              w26_opt.json (the 26 optimal spanning triples), w24_opt.json, w24.json, w26.json and w29.json (historical bases)
+    data/                              w29_opt.json (the current 29 optimal spanning triples),
+                                       w26_opt.json and w24_opt.json (earlier bases),
+                                       w24.json, w26.json and w29.json (historical bases)
+
+## Current paper result
+
+The final vectorial result of Section 4.2 uses `data/w29_opt.json` (29 optimal
+triples, rank 29, all four feasible supports) and
+`code/attack_complexity/vectorial/cost_v29.py`:
+
+    python code/attack_complexity/vectorial/cost_v29.py
+    basis triples: 29
+    SEI_2(W) = 2^-211.540788
+    optimal B_g = 239
+    data  = 2^247.456
+    time  = 2^248.523
+    memory= 2^247.456
+    gains: data 2.403, time 2.287, memory 2.403
+
+The v = 29 point is the best point of the joint (v, B_g) scan in the paper; it is
+not a global optimality claim. Historical v = 24 and v = 26 bases are kept for
+the revision record.
 
 ## Links
 

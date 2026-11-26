@@ -12,7 +12,7 @@ Every script listed below was rerun from a clean copy on 2026-11-13, the scripts
         correlation/      LAT and ILAT tables, the per-byte factorisation, and the
                           exact correlation of the optimal and designers' triples
         search/           support enumeration, exact optimum, feasibility and dimension
-                          checks, and the search for the 24-mask space W
+                          checks, and the search for the optimal spanning spaces and the final 29-mask basis W
       attack_complexity/
         single/           single-approximation fast correlation attack
         vectorial/        vectorial fast correlation attack
@@ -20,6 +20,16 @@ Every script listed below was rerun from a clean copy on 2026-11-13, the scripts
       reduced_scale/      reduced-scale analogue of the cipher and its Monte Carlo
                           and exact correlation experiments (supplementary reduced-scale experiments)
       dev/                development history, not needed for reproduction
+
+## Current paper result
+
+The final vectorial result uses data/w29_opt.json and
+
+    python code/attack_complexity/vectorial/cost_v29.py
+
+Expected: SEI_2(W) = 2^-211.540788, B_g = 239, data 2^247.456,
+time 2^248.523, memory 2^247.456, gains 2.403/2.287/2.403.
+A minimal command list is in ../REPRODUCE.md.
 
 ## Requirements and how to run
 
