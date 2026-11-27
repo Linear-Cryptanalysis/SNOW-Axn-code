@@ -12,9 +12,11 @@ supports, and the four support optima `-54.770580312` / `-55.155870468`.
 
 ## 2. Correlation attack cost
 
-    python code/attack_complexity/single/audit_attack_costs.py
+    python code/attack_complexity/single/cost_single.py
 
-Expected: the single-attack figures used in Table 1.
+Expected: `Bg = 241`, `M = 2^227.718`, `N = 2^249.859`,
+`T_tot = 2^250.810`. The historical `audit_attack_costs.py` reproduces the
+designers' rule and older cost constants, not Table 1 row (c).
 
 ## 3. Final vectorial attack (v = 29)
 

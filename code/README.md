@@ -23,11 +23,13 @@ Every script listed below was rerun from a clean copy on 2026-11-13, the scripts
 
 ## Current paper result
 
-The final vectorial result uses data/w29_opt.json and
+The final single and vectorial results use
 
+    python code/attack_complexity/single/cost_single.py
     python code/attack_complexity/vectorial/cost_v29.py
 
-Expected: SEI_2(W) = 2^-211.887010, B_g = 239, data 2^247.630,
+Expected single: M = 2^227.718, N = 2^249.859, T_tot = 2^250.810.
+Expected vectorial: SEI_2(W) = 2^-211.887010, B_g = 239, data 2^247.630,
 time 2^248.642, memory 2^247.630, gains 2.229/2.168/2.229.
 A minimal command list is in ../REPRODUCE.md.
 

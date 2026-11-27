@@ -32,7 +32,8 @@ and `attack_complexity/vectorial/tie_sensitivity.py`, and the scripts added on
 
 | Paper object | Script | Observed output |
 | --- | --- | --- |
-| Table 3, its first row and Eq. (12) | `attack_complexity/single/audit_attack_costs.py` | Bg=241: M = 2^228.0559, N = 2^250.0279, T = 2^250.9192; designers' trail under the rule of Section 3.4, Bg=243: N = 2^250.9745, T = 2^252.2014; designers' rule, Bg=248: N = 2^248.4866, T = 2^257.1863, M = 2^249.2637; optimum under the designers' rule, Bg=246: N = 2^247.5401, T = 2^255.8960, M = 2^247.9665 |
+| Table 1 row (c) and Eq. (12) | `attack_complexity/single/cost_single.py` | Bg=241: M = 2^227.718, N = 2^249.859, T1 = 2^250.359, T2 = 2^248.913, T3 = 2^228.560, T_tot = 2^250.810 |
+| Historical audit of the designers' rule | `attack_complexity/single/audit_attack_costs.py` | Bg=241: M = 2^228.0559, N = 2^250.0279, T = 2^250.9192; designers' trail under the rule of Section 3.4, Bg=243: N = 2^250.9745, T = 2^252.2014; designers' rule, Bg=248: N = 2^248.4866, T = 2^257.1863, M = 2^249.2637; optimum under the designers' rule, Bg=246: N = 2^247.5401, T = 2^255.8960, M = 2^247.9665 |
 | Section 4.1: profiles of the four supports | `mask_search/correlation/profile_supports.py` | optimal 11093111 pairs / 3295 levels / -54.771; others 11193038/3165, 11032069/3266, 11082491/3299, all -55.156 |
 | Section 4.2: capacities for v=24..29 (auxiliary) | `attack_complexity/vectorial/bg_scan_v.py`, `coset_v27.py`, `coset_v28.py` | auxiliary robustness scan with the corrected first-stage accounting, not quoted in the paper; SEI_2(V_29)=2^-216.726807 |
 | Section 4.2: supports outside the profile | `attack_complexity/vectorial/coset_other.py`, `coset_all.py` | each further triple adds 0.098 bits to log2 SEI_2; all three add 0.2768 bits; the first-stage data falls by the same amount and `bg_opt.py` gives the change of the totals (time 0.167 bits lower, data and memory unchanged) |
